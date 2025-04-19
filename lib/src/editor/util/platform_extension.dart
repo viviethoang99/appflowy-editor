@@ -1,13 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:web/web.dart' show window;
+import './platform/platform_sub.dart' if (dart.library.js_interop) './platform/platform_web.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 // TODO(Xazin): Refactor to honor `Theme.platform`
 extension PlatformExtension on Platform {
-  static String get _webPlatform =>
-      window.navigator.platform.toLowerCase();
+  static String get _webPlatform => getWebPlatform();
 
   /// Returns true if the operating system is macOS and not running on Web platform.
   static bool get isMacOS => UniversalPlatform.isMacOS;
@@ -48,8 +47,7 @@ extension PlatformExtension on Platform {
     return _webPlatform.contains('linux') == true;
   }
 
-  static bool get isDesktopOrWeb =>
-      UniversalPlatform.isWeb || UniversalPlatform.isDesktop;
+  static bool get isDesktopOrWeb => UniversalPlatform.isWeb || UniversalPlatform.isDesktop;
 
   static bool get isDesktop => UniversalPlatform.isDesktop;
 

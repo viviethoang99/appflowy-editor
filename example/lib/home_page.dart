@@ -22,8 +22,10 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:printing/printing.dart';
 import 'package:universal_platform/universal_platform.dart';
-import 'package:web/web.dart' as web;
-import 'dart:js_interop';
+
+import './pages/js_handler_stub.dart' if (dart.library.js_interop) './pages/js_handler_web.dart';
+
+
 
 enum ExportFileType {
   documentJson,
@@ -375,14 +377,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     if (kIsWeb) {
-      final bloc = web.Blob(
-        <web.BlobPart>[result.toJS].toJS,
-        web.BlobPropertyBag(type: 'text/plain', endings: 'native'),
-      );
-      web.HTMLAnchorElement()
-        ..href = web.URL.createObjectURL(bloc)
-        ..setAttribute('download', 'document.${fileType.extension}')
-        ..click();
+      exportFileToWeb(result, 'document', fileType.extension);
     } else if (UniversalPlatform.isMobile) {
       final appStorageDirectory = await getApplicationDocumentsDirectory();
 
