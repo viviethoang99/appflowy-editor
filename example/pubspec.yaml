@@ -39,7 +39,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   file_picker: ^8.0.2
-  universal_html: ^2.0.8
   highlight: ^0.7.0
   http: ^1.1.0
   show_fps: ^1.0.6
@@ -47,6 +46,7 @@ dependencies:
   appflowy_editor_plugins: ^0.0.6
   markdown:
   universal_platform: ^1.1.0
+  web: ^1.1.1
 
 dependency_overrides:
   appflowy_editor:
